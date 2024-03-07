@@ -1,20 +1,50 @@
-import * as React from "react";
+import React, { useState } from "react";
+import PaginationControls from "./PaginationControls";
+import ErrorComponent from "./ErrorComponent";
+import { useNavigate } from "react-router-dom";
+import useFetchPosts from "../hooks/useFetchPosts";
+import { Post } from "../types/types";
 
-interface PostListProps {
-    posts: { id: number; title: string }[];
-}
+const PostList: React.FC = () => {
+    const navigate = useNavigate();
+    const [page, setPage] = useState(1);
+    const { error, isLoading, posts, hasNextPage } = useFetchPosts(page);
 
-const PostList: React.FC<PostListProps> = ({ posts }) => {
+    const nextPage = () => {
+        setPage(page + 1);
+    };
+
+    const prevPage = () => {
+        setPage(page - 1);
+    };
+
+    const handlePostClick = (postId: number) => {
+        navigate(`/post/${postId}`);
+    };
+
+    if (error) {
+        return <ErrorComponent error={error} />;
+    }
+
     return (
         <div>
-            {posts.length === 0 ? (
-                <div>No more posts available.</div>
-            ) : (
+            <PaginationControls
+                page={page}
+                hasNextPage={hasNextPage}
+                onNextPage={nextPage}
+                onPrevPage={prevPage}
+            />
+            {isLoading && <div>Loading...</div>}
+            {!isLoading && posts.length > 0 ? (
                 <ul>
-                    {posts.map((post) => {
-                        return <li key={post.id}>{post.title}</li>;
-                    })}
+                    {posts.map((post: Post) => (
+                        <li key={post.id} onClick={() => handlePostClick(post.id)}>
+                            {post.title}
+                        </li>
+                    ))}
                 </ul>
+            ) : (
+                <div>No posts available</div>
             )}
         </div>
     );

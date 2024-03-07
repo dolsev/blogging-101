@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { BASE_URL } from "../../config";
-import {Post} from "../types/types";
+import { Post } from "../types/types";
 
 const useFetchPosts = (page: number) => {
     const [error, setError] = useState<any>(null);

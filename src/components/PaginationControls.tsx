@@ -1,30 +1,25 @@
-// PaginationControls.tsx
-import React from "react";
+import {PaginationControlsProps} from "../types/types";
 
-interface PaginationControlsProps {
-    page: number;
-    hasNextPage: boolean;
-    onNextPage: () => void;
-    onPrevPage: () => void;
-}
+const usePaginationControls = ({ page, hasNextPage, onNextPage, onPrevPage }: PaginationControlsProps) => {
+    const nextPage = () => {
+        onNextPage();
+    };
 
-const PaginationControls: React.FC<PaginationControlsProps> = ({
-                                                                   page,
-                                                                   hasNextPage,
-                                                                   onNextPage,
-                                                                   onPrevPage,
-                                                               }) => {
+    const prevPage = () => {
+        onPrevPage();
+    };
+
     return (
         <div>
-            <button onClick={onPrevPage} disabled={page === 1}>
+            <button onClick={prevPage} disabled={page === 1}>
                 Previous Page
             </button>
             <span>Page: {page}</span>
-            <button onClick={onNextPage} disabled={!hasNextPage}>
+            <button onClick={nextPage} disabled={!hasNextPage}>
                 Next Page
             </button>
         </div>
     );
 };
 
-export default PaginationControls;
+export default usePaginationControls;

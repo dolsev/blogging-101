@@ -1,4 +1,3 @@
-// ErrorComponent.tsx
 import React from "react";
 
 interface ErrorComponentProps {
