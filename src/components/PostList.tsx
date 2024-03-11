@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useFetchPosts from "../hooks/useFetchPosts";
 import PaginationControls from "./PaginationControls";
@@ -10,7 +10,7 @@ const PostList = () => {
     const [page, setPage] = useState(1);
     const { error, isLoading, posts, hasNextPage } = useFetchPosts(page);
 
-    const handlePostClick = (postId) => {
+    const handlePostClick = (postId:number) => {
         navigate(`/post/${postId}`);
     };
 

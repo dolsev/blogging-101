@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import ErrorComponent from "./ErrorComponent";
 import useFetchSinglePost from "../hooks/useFetchSinglePost";

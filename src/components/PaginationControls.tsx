@@ -1,4 +1,3 @@
-import React from "react";
 import { PaginationControlsProps } from "../types/types";
 import styles from "./PaginationControls.module.css";
 
