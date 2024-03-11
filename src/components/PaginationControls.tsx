@@ -1,25 +1,27 @@
-import {PaginationControlsProps} from "../types/types";
+import React from "react";
+import { PaginationControlsProps } from "../types/types";
+import styles from "./PaginationControls.module.css";
 
-const usePaginationControls = ({ page, hasNextPage, onNextPage, onPrevPage }: PaginationControlsProps) => {
-    const nextPage = () => {
-        onNextPage();
-    };
-
-    const prevPage = () => {
-        onPrevPage();
-    };
-
+const PaginationControls = ({ page, hasNextPage, onNextPage, onPrevPage }: PaginationControlsProps) => {
     return (
-        <div>
-            <button onClick={prevPage} disabled={page === 1}>
+        <div className={styles.paginationContainer}>
+            <button
+                className={styles.paginationButton}
+                onClick={onPrevPage}
+                disabled={page === 1}
+            >
                 Previous Page
             </button>
             <span>Page: {page}</span>
-            <button onClick={nextPage} disabled={!hasNextPage}>
+            <button
+                className={styles.paginationButton}
+                onClick={onNextPage}
+                disabled={!hasNextPage}
+            >
                 Next Page
             </button>
         </div>
     );
 };
 
-export default usePaginationControls;
+export default PaginationControls;

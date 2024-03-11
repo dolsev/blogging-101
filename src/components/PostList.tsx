@@ -1,24 +1,16 @@
 import React, { useState } from "react";
-import PaginationControls from "./PaginationControls";
-import ErrorComponent from "./ErrorComponent";
 import { useNavigate } from "react-router-dom";
 import useFetchPosts from "../hooks/useFetchPosts";
-import { Post } from "../types/types";
+import PaginationControls from "./PaginationControls";
+import ErrorComponent from "./ErrorComponent";
+import styles from "./PostList.module.css";
 
-const PostList: React.FC = () => {
+const PostList = () => {
     const navigate = useNavigate();
     const [page, setPage] = useState(1);
     const { error, isLoading, posts, hasNextPage } = useFetchPosts(page);
 
-    const nextPage = () => {
-        setPage(page + 1);
-    };
-
-    const prevPage = () => {
-        setPage(page - 1);
-    };
-
-    const handlePostClick = (postId: number) => {
+    const handlePostClick = (postId) => {
         navigate(`/post/${postId}`);
     };
 
@@ -27,25 +19,26 @@ const PostList: React.FC = () => {
     }
 
     return (
-        <div>
+        <div className={styles.postListContainer}>
             <PaginationControls
                 page={page}
                 hasNextPage={hasNextPage}
-                onNextPage={nextPage}
-                onPrevPage={prevPage}
+                onNextPage={() => setPage(page + 1)}
+                onPrevPage={() => setPage(page - 1)}
             />
-            {isLoading && <div>Loading...</div>}
-            {!isLoading && posts.length > 0 ? (
-                <ul>
-                    {posts.map((post: Post) => (
-                        <li key={post.id} onClick={() => handlePostClick(post.id)}>
-                            {post.title}
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <div>No posts available</div>
-            )}
+            {isLoading ? <div>Loading...</div> :
+                posts.length > 0 ? (
+                    <ul>
+                        {posts.map((post) => (
+                            <li key={post.id} className={styles.postItem} onClick={() => handlePostClick(post.id)}>
+                                {post.title}
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <div>No posts available</div>
+                )
+            }
         </div>
     );
 };

@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import styles from "./Header.module.css";
 
-const Header: React.FC = () => {
+const Header = () => {
     return (
-        <header>
-            <Link to="/">
+        <header className={styles.header}>
+            <Link to="/" className={styles.logoLink}>
                 <h1>TheBlog</h1>
             </Link>
         </header>

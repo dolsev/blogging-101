@@ -1,0 +1,12 @@
+.postListContainer {
+    margin-bottom: 20px;
+}
+
+.postItem {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+.postItem:hover {
+    background-color: #f0f0f0;
+}
